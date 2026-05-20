@@ -10,7 +10,12 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:3000'],
+  origin: [
+    'http://localhost:5173',
+    'http://localhost:3000',
+    'https://docappoint-server-pfb3.onrender.com',   // your render url
+    'https://your-vercel-frontend-url.vercel.app'    // ← change this to your actual Vercel URL later
+  ],
   credentials: true
 }));
 app.use(express.json());
