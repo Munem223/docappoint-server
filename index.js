@@ -13,6 +13,7 @@ app.use(cors({
   origin: [
     'http://localhost:5173',
     'https://docappoint-client-delta.vercel.app',
+    'https://docappointclient.vercel.app',           // ← this is your actual live domain
     'https://docappoint-server-pfb3.onrender.com'
   ],
   credentials: true
