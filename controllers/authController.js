@@ -118,5 +118,3 @@ const googleLogin = async (req, res) => {
 };
 
 module.exports = { registerUser, loginUser, googleLogin };
-
-module.exports = { registerUser, loginUser };
