@@ -78,5 +78,45 @@ const loginUser = async (req, res) => {
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
+// Google Login
+const googleLogin = async (req, res) => {
+  try {
+    const { name, email, photoURL } = req.body;
+
+    // Check if user already exists
+    let user = await User.findOne({ email });
+
+    if (!user) {
+      // Create new user if not exists
+      user = await User.create({
+        name,
+        email,
+        password: "google-auth", // dummy password (not used for Google login)
+        photoURL: photoURL || 'https://i.ibb.co/5Y0Y7vJ/default-avatar.png'
+      });
+    }
+
+    // Generate JWT token
+    const token = jwt.sign(
+      { id: user._id, email: user.email, name: user.name },
+      process.env.JWT_SECRET,
+      { expiresIn: '7d' }
+    );
+
+    res.json({
+      token,
+      user: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        photoURL: user.photoURL
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { registerUser, loginUser, googleLogin };
 
 module.exports = { registerUser, loginUser };
